@@ -15,6 +15,7 @@ body {
   width: 100%;
   padding: 0 10px;
   background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+  position: relative;
 }
 
 body::before {
@@ -22,14 +23,16 @@ body::before {
   position: absolute;
   width: 100%;
   height: 100%;
-  background: url("https://i.postimg.cc/0jv27Qvw/20008380-645221846.jpg"), #000;
+  background: url("img/background.jpg");
   background-position: center;
   background-size: cover;
   z-index: -1;
 }
 
+
 .wrapper {
-  width: 400px;
+  width: 100%;
+  max-width: 400px;
   border-radius: 15px;
   padding: 40px;
   text-align: center;
@@ -46,7 +49,7 @@ body::before {
 }
 
 h2 {
-  font-size: 2.2rem;
+  font-size: 1.8rem;
   margin-bottom: 25px;
   color: #ffffff;
   letter-spacing: 1px;
@@ -54,7 +57,7 @@ h2 {
 
 button {
   background-color: #271930;
- color: #ffffff;
+  color: #ffffff;
   font-weight: 600;
   margin-top: 30px;
   border: none;
@@ -64,6 +67,7 @@ button {
   font-size: 16px;
   border: 2px solid transparent;
   transition: all 0.3s ease;
+  width: 100%;
 }
 
 button:hover {
@@ -77,6 +81,39 @@ button:hover {
   margin-top: -15px;
   color: #ffffff;
 }
-                                         
-                                                     
-            
+
+/* Media Query for Smartphones */
+@media (max-width: 600px) {
+  body {
+    padding: 0 10px; /* Reduce padding for mobile */
+  }
+
+  .wrapper {
+    width: 100%;
+    padding: 20px; /* Adjust padding to optimize space */
+  }
+
+  h2 {
+    font-size: 1.5rem; /* Slightly smaller font size for small screens */
+  }
+
+  button {
+    padding: 12px 30px;
+    font-size: 14px;
+  }
+}
+
+/* Media Query for very small screens (below 400px) */
+@media (max-width: 400px) {
+  .wrapper {
+    padding: 15px; /* Further reduce padding */
+  }
+
+  h2 {
+    font-size: 1.4rem; /* Make heading a bit smaller */
+  }
+
+  button {
+    font-size: 13px; /* Adjust button size for small screens */
+  }
+}
