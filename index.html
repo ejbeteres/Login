@@ -100,15 +100,18 @@
     const rememberCheckbox = document.getElementById('remember');
     const popup = document.getElementById('popup');
     const closePopup = document.getElementById('closePopup');
-  
-    const allowedEmail = 'your-permanent-email@gmail.com'; // Set your permanent email here
+    
+    // Function to check if the email is a valid Gmail account
+    function isGmail(email) {
+      return email.endsWith('@gmail.com');
+    }
   
     // Load saved credentials if available (from sessionStorage)
     window.addEventListener('load', () => {
       const savedEmail = sessionStorage.getItem('savedEmail');
       const savedPassword = sessionStorage.getItem('savedPassword');
       const remember = sessionStorage.getItem('remember');
-  
+    
       if (remember === 'true') {
         emailInput.value = savedEmail || '';
         passwordInput.value = savedPassword || '';
@@ -119,22 +122,23 @@
     // Handle form submission
     form.addEventListener('submit', function(event) {
       event.preventDefault(); // Stop normal form submit
-  
+    
       const email = emailInput.value.trim();
       const password = passwordInput.value.trim();
-  
+    
+      // Basic validation for email and password
       if (email === '' || password === '') {
         alert('Please fill in both email and password.');
         return;
       }
-  
-      // Check if email is the allowed Google account
-      if (email !== allowedEmail) {
+    
+      // Check if email is a valid Gmail address
+      if (!isGmail(email)) {
         popup.style.display = 'flex'; // Show the popup
         return;
       }
-  
-      // If it's the allowed email, save credentials if needed (using sessionStorage for per-device login)
+    
+      // Save credentials if "Remember me" is checked (using sessionStorage for per-device login)
       if (rememberCheckbox.checked) {
         sessionStorage.setItem('savedEmail', email);
         sessionStorage.setItem('savedPassword', password);
@@ -154,7 +158,8 @@
       popup.style.display = 'none';
     });
   </script>
-     
+  
+    
 
 </body>
 </html>
