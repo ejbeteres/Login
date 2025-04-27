@@ -100,58 +100,61 @@
     const rememberCheckbox = document.getElementById('remember');
     const popup = document.getElementById('popup');
     const closePopup = document.getElementById('closePopup');
-
-    // Load saved credentials if available
+  
+    const allowedEmail = 'your-permanent-email@gmail.com'; // Set your permanent email here
+  
+    // Load saved credentials if available (from sessionStorage)
     window.addEventListener('load', () => {
-      const savedEmail = localStorage.getItem('savedEmail');
-      const savedPassword = localStorage.getItem('savedPassword');
-      const remember = localStorage.getItem('remember');
-
+      const savedEmail = sessionStorage.getItem('savedEmail');
+      const savedPassword = sessionStorage.getItem('savedPassword');
+      const remember = sessionStorage.getItem('remember');
+  
       if (remember === 'true') {
         emailInput.value = savedEmail || '';
         passwordInput.value = savedPassword || '';
         rememberCheckbox.checked = true;
       }
     });
-
+  
     // Handle form submission
     form.addEventListener('submit', function(event) {
       event.preventDefault(); // Stop normal form submit
-
+  
       const email = emailInput.value.trim();
       const password = passwordInput.value.trim();
-
+  
       if (email === '' || password === '') {
         alert('Please fill in both email and password.');
         return;
       }
-
-      // Check if email is a Google account
-      if (!email.endsWith('@gmail.com')) {
+  
+      // Check if email is the allowed Google account
+      if (email !== allowedEmail) {
         popup.style.display = 'flex'; // Show the popup
         return;
       }
-
-      // Save credentials if needed
+  
+      // If it's the allowed email, save credentials if needed (using sessionStorage for per-device login)
       if (rememberCheckbox.checked) {
-        localStorage.setItem('savedEmail', email);
-        localStorage.setItem('savedPassword', password);
-        localStorage.setItem('remember', true);
+        sessionStorage.setItem('savedEmail', email);
+        sessionStorage.setItem('savedPassword', password);
+        sessionStorage.setItem('remember', true);
       } else {
-        localStorage.removeItem('savedEmail');
-        localStorage.removeItem('savedPassword');
-        localStorage.setItem('remember', false);
+        sessionStorage.removeItem('savedEmail');
+        sessionStorage.removeItem('savedPassword');
+        sessionStorage.setItem('remember', false);
       }
-
+  
       // Redirect after successful login
       window.location.href = "loading/cat-loader.html"; // Your redirect page
     });
-
+  
     // Close popup when clicking OK
     closePopup.addEventListener('click', function() {
       popup.style.display = 'none';
     });
   </script>
+     
 
 </body>
 </html>
